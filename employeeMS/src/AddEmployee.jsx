@@ -38,7 +38,11 @@ const AddEmployee = () => {
     formData.append('image', employee.image);
     formData.append('category_id', employee.category_id);
 
-    console.log(formData);
+    // Log each entry in FormData
+    for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
+
     axios.post("http://localhost:3000/auth/add_employee", formData)
     .then(result => {
         if(result.data.Status) {
@@ -48,7 +52,7 @@ const AddEmployee = () => {
         }
     })
     .catch(err => console.log(err))
-  }
+}
 
   return (
     <div className="d-flex justify-content-center align-items-center mt-3">
@@ -130,7 +134,7 @@ const AddEmployee = () => {
             <label htmlFor="category" className="form-label">
               Category
             </label>
-            <select name="category" id="category" className="form-select"
+            <select name="category" id="category"  className="form-select"
                 onChange={(e) => setEmployee({...employee, category_id: e.target.value})}>
               {category.map((c,index) => {
                 return <option key={index} value={c.id}>{c.name}</option>;
